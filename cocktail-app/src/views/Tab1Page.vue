@@ -21,6 +21,7 @@
           <ion-card-subtitle>
             <!-- @vue-ignore -->
             {{ state.randomCocktail.strCategory }} | Served In
+            <!-- @vue-ignore -->
             {{ state.randomCocktail.strGlass }}
           </ion-card-subtitle>
           <ion-card-title>
@@ -84,13 +85,14 @@ const fetchRandomCocktail = async (displayLoader: boolean) => {
   console.log(res);
 }
 
+
 const doRefresh = (event: CustomEvent) => {
   fetchRandomCocktail(false);
   //@ts-ignore
   event.target?.complete();
 }
 
-fetchRandomCocktail(true);
+fetchRandomCocktail(true);  
 
 </script>
 
