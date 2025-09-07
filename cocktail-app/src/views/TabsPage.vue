@@ -24,5 +24,5 @@
 
 <script setup lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { ellipse, shuffle, square, triangle } from 'ionicons/icons';
+import { ellipse, shuffle, square } from 'ionicons/icons';
 </script>

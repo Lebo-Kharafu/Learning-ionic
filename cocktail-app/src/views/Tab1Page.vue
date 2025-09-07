@@ -16,7 +16,7 @@
       </ion-refresher>
       <ion-card>
         <!-- @vue-ignore -->
-        <img :src="state.randomCocktail.strDrinkThumb"></img>
+        <img :src="state.randomCocktail.strDrinkThumb" />
         <ion-card-header>
           <ion-card-subtitle>
             <!-- @vue-ignore -->
@@ -61,50 +61,54 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import { reactive } from 'vue';
-import axios from 'axios';
+  import {
+    IonPage, IonHeader, IonToolbar, IonTitle,
+    IonContent, IonSpinner, IonRefresher, IonRefresherContent,
+    IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,
+    IonItem, IonLabel, IonList, IonListHeader,
+  } from '@ionic/vue';
+  import { reactive } from 'vue';
+  import axios from 'axios';
 
-const state = reactive({
-  randomCocktail: {},
-  loading: false
-});
+  const state = reactive({
+    randomCocktail: {},
+    loading: false
+  });
 
-const fetchRandomCocktail = async (displayLoader: boolean) => {
-  if (displayLoader) {
-    state.loading = true;
+  const fetchRandomCocktail = async (displayLoader: boolean) => {
+    if (displayLoader) {
+      state.loading = true;
+    }
+
+    const res = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php");
+
+    if (res.data) {
+      state.randomCocktail = res.data?.drinks[0];
+    }
+
+    state.loading = false;
   }
 
-  const res = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php");
 
-  if (res.data) {
-    state.randomCocktail = res.data?.drinks[0];
+  const doRefresh = async (event: CustomEvent) => {
+    await fetchRandomCocktail(false);
+    //@ts-ignore
+    event.target?.complete();
   }
 
-  state.loading = false;
-  console.log(res);
-}
-
-
-const doRefresh = (event: CustomEvent) => {
-  fetchRandomCocktail(false);
-  //@ts-ignore
-  event.target?.complete();
-}
-
-fetchRandomCocktail(true);  
+  fetchRandomCocktail(true);
 
 </script>
 
 <style lang="css">
-.loading-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90dvh;
-}
+  .loading-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90dvh;
+  }
 
-ion-spinner {
-  transform: scale(1.5);
-}
+  ion-spinner {
+    transform: scale(1.5);
+  }
 </style>
