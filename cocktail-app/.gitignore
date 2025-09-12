@@ -31,8 +31,3 @@ npm-debug.log*
 /plugins
 /www
 
-#exclude the moble builds
-/android
-android
-/ios
-ios
