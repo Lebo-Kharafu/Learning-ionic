@@ -6,7 +6,7 @@
 			</ion-toolbar>
 		</ion-header>
 		<ion-content v-if="state.loading">
-			<section class="loading-center">
+			<section class="center">
 				<ion-spinner color="primary"></ion-spinner>
 			</section>
 		</ion-content>
@@ -23,6 +23,7 @@
 				:drinkLst="state.lstDrink"
 				v-if="state.lstDrink.length > 0"
 			/>
+			<ion-label class="center" v-else>{{ "Please Search Drinks" }}</ion-label>
 		</ion-content>
 	</ion-page>
 </template>
@@ -70,4 +71,15 @@
 	fetchDrinks("");
 </script>
 
-<style scoped></style>
+<style lang="css">
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80dvh;
+  }
+
+  ion-spinner {
+    transform: scale(1.5);
+  }
+</style>
