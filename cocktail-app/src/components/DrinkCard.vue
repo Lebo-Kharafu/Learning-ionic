@@ -1,5 +1,5 @@
 <template>
-    <ion-card>
+    <ion-card class="card-center">
         <img :src="drink.strDrinkThumb" />
         <ion-card-header>
             <ion-card-subtitle>
@@ -39,15 +39,27 @@
 
 <script setup lang="ts">
 
-import {
-    IonCard,IonCardSubtitle,IonCardContent,IonCardHeader,
-    IonCardTitle, IonItem, IonLabel, IonList,IonListHeader,
-  } from '@ionic/vue';
+    import {
+        IonCard, IonCardSubtitle, IonCardContent, IonCardHeader,
+        IonCardTitle, IonItem, IonLabel, IonList, IonListHeader,
+    } from '@ionic/vue';
 
     import { Drink } from "../types/index";
-    defineProps<{ drink: Drink}>();
+    defineProps<{ drink: Drink }>();
 </script>
 
 <style lang="css">
+     .card-center {
+            display: grid;
+            align-items: center;
+            text-align: center;
+            justify-content: space-around;
+            margin: 0;
+        }
 
+        img {
+            display: block;
+            margin: auto;
+            width: 80%;
+        }
 </style>
