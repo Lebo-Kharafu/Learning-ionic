@@ -2,10 +2,10 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
+        <ion-title>{{ pageState.drink.strDrink }}</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content v-if="state.loading">
+    <ion-content v-if="pageState.loading">
       <section class="loading-center">
         <ion-spinner color="primary"></ion-spinner>
       </section>
@@ -14,7 +14,7 @@
       <ion-refresher slot="fixed" @ionRefresh="doRefresh">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-      <DrinkCard :drink=state.randomCocktail />
+      <DrinkCard :drink=pageState.drink />
     </ion-content>
   </ion-page>
 </template>
@@ -28,24 +28,27 @@
   import axios from 'axios';
   import DrinkCard from "@/components/DrinkCard.vue";
   import { Drink } from "@/types/index";
+  import { useRoute } from 'vue-router';
 
-  const state = reactive({
-    randomCocktail: {} as Drink,
+  const route = useRoute();
+  const idDrink = route.params.idDrink;
+
+  const pageState = reactive({
+    drink: {} as Drink,
     loading: false
   });
 
   const fetchRandomCocktail = async (displayLoader: boolean) => {
     if (displayLoader) {
-      state.loading = true;
+      pageState.loading = true;
     }
-
-    const res = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php");
-
+    //@ts-ignore
+    const res = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`);
     if (res.data) {
-      state.randomCocktail = res.data?.drinks[0];
+      pageState.drink = res.data?.drinks[0];
     }
 
-    state.loading = false;
+    pageState.loading = false;
   }
 
 

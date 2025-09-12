@@ -8,6 +8,14 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/tabs/tab1'
   },
   {
+    path: '/drinks-by-ingredient/:ingredient',
+    component: () => import('@/views/DrinkByIngredient.vue')
+  },
+  {
+    path: '/drinks-info/:idDrink',
+    component: () => import('@/views/DrinkInfo.vue')
+  },
+  {
     path: '/tabs/',
     component: TabsPage,
     children: [
