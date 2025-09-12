@@ -2,6 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>{{ ingredient }} Drinks</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -28,6 +31,7 @@
   import {
     IonPage, IonHeader, IonToolbar, IonTitle,
     IonContent, IonSpinner, IonItem, IonList,
+    IonBackButton,IonButtons,
   } from '@ionic/vue';
   import { useRouter, useRoute } from 'vue-router';
   import { reactive } from "vue";

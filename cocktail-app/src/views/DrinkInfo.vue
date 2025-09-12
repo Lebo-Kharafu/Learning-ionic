@@ -2,6 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>{{ pageState.drink.strDrink }}</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -21,7 +24,7 @@
 
 <script setup lang="ts">
   import {
-    IonPage, IonHeader, IonToolbar, IonTitle,
+    IonPage, IonHeader, IonToolbar, IonTitle,IonBackButton,IonButtons,
     IonContent, IonSpinner, IonRefresher, IonRefresherContent,
   } from '@ionic/vue';
   import { reactive } from 'vue';
