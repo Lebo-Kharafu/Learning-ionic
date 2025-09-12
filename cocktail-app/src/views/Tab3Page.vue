@@ -15,10 +15,14 @@
 				:animated="true"
 				:debounce="1000"
 				placeholder="Search a Drink"
-				:onIonChange="(event:CustomEvent) => handleInput(event.detail.value)"
+				@ionInput="(event:CustomEvent) => handleInput(event.detail.value)"
 			>
+				<!-- :onIonChange="(event:CustomEvent) => handleInput(event.detail.value)" -->
 			</ion-searchbar>
-			<DrinkCardList :drinkLst="state.lstDrink"/>
+			<DrinkCardList
+				:drinkLst="state.lstDrink"
+				v-if="state.lstDrink.length > 0"
+			/>
 		</ion-content>
 	</ion-page>
 </template>
@@ -43,33 +47,27 @@
 		loading: false,
 	});
 
-	let searchTerm = ref<string>("");
-
-	const fetchDrinks = async () => {
+	const fetchDrinks = async (searchTerm: string) => {
 		state.loading = true;
 
-		if (searchTerm.value) {
+		if (!(searchTerm === "")) {
 			const res = await axios.get(
-				`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm.value}`
+				`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`
 			);
-			if (res.data) {
+			if (res.data?.drinks) {
 				state.lstDrink = res.data?.drinks;
+			}else{
+				state.lstDrink = [];
 			}
-		} else {
-			state.lstDrink = [];
 		}
-		console.log(state.lstDrink);
 		state.loading = false;
 	};
 
 	const handleInput = (search: string) => {
-		searchTerm.value = search;
-		fetchDrinks();
+		fetchDrinks(search);
 	};
 
-	fetchDrinks();
+	fetchDrinks("");
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
